@@ -1,13 +1,12 @@
+// src/routes/ userRoutes.js
+
 const express = require('express');
 const fetch = require('node-fetch'); 
-const supabase = require('@supabase/supabase-js');
-const supabaseUrl = 'https://bgynecsgqrdfrkcyshsz.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJneW5lY3NncXJkZnJrY3lzaHN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDcyNzYxOTQsImV4cCI6MjAyMjg1MjE5NH0.-0gp9bF5zNXjHLp_WNDYSofyMr334kWZXSP3Aslg1tw';
-
 const router = express.Router();
-const supabaseClient = supabase.createClient(supabaseUrl, supabaseAnonKey);
-// User login route
 
+const { supabaseUrl, supabaseAnonKey, supabaseClient } = require('../routes/supabaseConfig');
+
+// User login route
 router.post('/signin', async (req, res) => {
     const { email, password } = req.body;
   
@@ -138,7 +137,5 @@ router.post('/update-profile', async (req, res) => {
   });
   
 
-//--------------------------------------------------------------
-//-------------------------------------------------------------
-//--------------------------------------------------------
+
 module.exports = router;

@@ -1,0 +1,13 @@
+# Node.js
+node_modules/
+
+# macOS
+.DS_Store
+
+# IDEs and editors
+.vscode/
+.idea/
+
+# Logs and databases
+*.log
+*.sqlite

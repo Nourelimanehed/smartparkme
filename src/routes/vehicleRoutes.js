@@ -56,6 +56,40 @@ router.get('/defaults', async (req, res) => {
 
 
 
+router.get('/all', async (req, res) => {
+  try {
+    // Session and user information
+    const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
+
+    if (sessionError || !sessionData) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const user_id = sessionData.user.id;
+
+    
+    const { data: userVehicles, error: userError } = await supabaseClient.from('vehicles').select('*').eq('user_id', user_id);
+
+    if (userError) {
+      return res.status(500).json({ error: 'Failed to fetch user vehicles' });
+    }
+
+    
+    const { data: defaultVehicles, error: defaultError } = await supabaseClient.from('default_vehicles').select('*');
+
+    if (defaultError) {
+      return res.status(500).json({ error: 'Failed to fetch default vehicles' });
+    }
+
+   
+    const allVehicles = [...defaultVehicles, ...userVehicles];
+
+    res.status(200).json(allVehicles);
+  } catch (error) {
+    console.error('Fetch vehicles error:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 
 

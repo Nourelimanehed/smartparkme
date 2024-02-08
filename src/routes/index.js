@@ -2,7 +2,7 @@
 const express = require('express');
 const userRoutes = require('./userRoutes');
 const supabaseClient = require('./supabaseConfig');
-//const parkingRoutes = require('./parkingRoutes');
+const bookingRoutes = require('./bookingRoutes');
 //const paymentRoutes = require('./paymentRoutes');
 const vehicleRoutes = require('./vehicleRoutes');
 const lotRoutes = require('./lotRoutes');
@@ -11,7 +11,7 @@ router.use('/users', userRoutes);
 //router.use('/payments', paymentRoutes); 
 router.use('/vehicles', vehicleRoutes); 
 router.use('/lots', lotRoutes);
-//router.use('/parking', parkingRoutes);
+router.use('/booking', bookingRoutes);
 
 module.exports = router;
 

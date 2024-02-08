@@ -98,5 +98,29 @@ router.patch('/:lot_name', async (req, res) => {
     }
   });
   
+  const updateLotStatus = async (lot_name, lot_status) => {
+    try {
+        const { data, error } = await supabaseClient
+            .from('lots')
+            .update({ lot_status })
+            .eq('lot_name', lot_name)
+            .select();
 
-module.exports = router;
+        if (error) {
+            console.error('Update lot status error:', error.message);
+            return { error: 'Failed to update lot status' };
+        }
+
+        if (!data || data.length === 0) {
+            return { error: 'Lot not found' };
+        }
+
+        return { data: data[0] };
+    } catch (error) {
+        console.error('Update lot status error:', error.message);
+        return { error: 'Internal server error' };
+    }
+};
+
+
+module.exports = {router, updateLotStatus};
